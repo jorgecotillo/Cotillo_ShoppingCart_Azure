@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotillo_ShoppingCart_Azure", "Cotillo_ShoppingCart_Azure\Cotillo_ShoppingCart_Azure.csproj", "{69A45728-89D4-4A88-B5A0-68B5A8F33ECE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotillo_ShoppingCart_Azure.Tests", "Cotillo_ShoppingCart_Azure.Tests\Cotillo_ShoppingCart_Azure.Tests.csproj", "{7471E938-B889-400A-8400-13BC8127A566}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotillo_ShoppingCart_Services", "Cotillo_ShoppingCart_Services\Cotillo_ShoppingCart_Services.csproj", "{5E373E58-699A-4CED-B0C5-0803BA65E305}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotillo_ShoppingCart_Email_WebJob", "Cotillo_ShoppingCart_Email_WebJob\Cotillo_ShoppingCart_Email_WebJob.csproj", "{F5D524F0-103A-461D-B7C0-651AA2514B1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69A45728-89D4-4A88-B5A0-68B5A8F33ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69A45728-89D4-4A88-B5A0-68B5A8F33ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69A45728-89D4-4A88-B5A0-68B5A8F33ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69A45728-89D4-4A88-B5A0-68B5A8F33ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7471E938-B889-400A-8400-13BC8127A566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7471E938-B889-400A-8400-13BC8127A566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7471E938-B889-400A-8400-13BC8127A566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7471E938-B889-400A-8400-13BC8127A566}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E373E58-699A-4CED-B0C5-0803BA65E305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E373E58-699A-4CED-B0C5-0803BA65E305}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E373E58-699A-4CED-B0C5-0803BA65E305}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E373E58-699A-4CED-B0C5-0803BA65E305}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5D524F0-103A-461D-B7C0-651AA2514B1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5D524F0-103A-461D-B7C0-651AA2514B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5D524F0-103A-461D-B7C0-651AA2514B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5D524F0-103A-461D-B7C0-651AA2514B1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
