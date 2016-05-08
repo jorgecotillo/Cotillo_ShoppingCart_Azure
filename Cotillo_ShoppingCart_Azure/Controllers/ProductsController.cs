@@ -35,7 +35,7 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         {
             try
             {
-                var allProductInfo = await _productService.GetAll();
+                var allProductInfo = await _productService.GetAllAsync();
 
                 //Translate Product from Service into Product Model using an extension method
                 return Ok(allProductInfo.ToProductModelList());

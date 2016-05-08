@@ -6,6 +6,7 @@ using System.Net.Mail;
 using SendGrid;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Cotillo_ShoppingCart_Services.Business.Implementation
 {
@@ -15,31 +16,41 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
         {
             try
             {
+                //Checking invariants
+                if (emailEntity == null)
+                    throw new NullReferenceException("Email entity cannot be null");
+
+                if (String.IsNullOrWhiteSpace(emailEntity.From))
+                    throw new ArgumentException("From cannot be empty");
+
+                if (String.IsNullOrWhiteSpace(emailEntity.To))
+                    throw new ArgumentException("To cannot be empty");
+
+                if (String.IsNullOrWhiteSpace(emailEntity.Body))
+                    throw new ArgumentException("Body cannot be empty");
+
                 // Create the email object first, then add the properties.
                 var myMessage = new SendGridMessage();
 
                 // Add the message properties.
-                myMessage.From = new MailAddress("john@example.com");
+                myMessage.From = new MailAddress(emailEntity.From);
 
                 // Add multiple addresses to the To field.
                 List<String> recipients = new List<String>
                 {
-                    @"Jeff Smith <jeff@example.com>",
-                    @"Anna Lidman <anna@example.com>",
-                    @"Peter Saddow <peter@example.com>"
+                    emailEntity.To
                 };
-
                 myMessage.AddTo(recipients);
 
-                myMessage.Subject = "Testing the SendGrid Library";
+                myMessage.Subject = emailEntity.Subject;
 
                 //Add the HTML and Text bodies
-                myMessage.Html = "<p>Hello World!</p>";
-                myMessage.Text = "Hello World plain text!";
+                myMessage.Html = emailEntity.Body;
+                //myMessage.Text = "Hello World plain text!";
 
                 // Create network credentials to access your SendGrid account
-                var username = "your_sendgrid_username";
-                var pswd = "your_sendgrid_password";
+                var username = ConfigurationManager.AppSettings["SendGridUser"];
+                var pswd = ConfigurationManager.AppSettings["SendGridPwd"];
 
                 var credentials = new NetworkCredential(username, pswd);
                 // Create an Web transport for sending email.
@@ -58,31 +69,41 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
         {
             try
             {
+                //Checking invariants
+                if (emailEntity == null)
+                    throw new NullReferenceException("Email entity cannot be null");
+
+                if (String.IsNullOrWhiteSpace(emailEntity.From))
+                    throw new ArgumentException("From cannot be empty");
+
+                if (String.IsNullOrWhiteSpace(emailEntity.To))
+                    throw new ArgumentException("To cannot be empty");
+
+                if (String.IsNullOrWhiteSpace(emailEntity.Body))
+                    throw new ArgumentException("Body cannot be empty");
+
                 // Create the email object first, then add the properties.
                 var myMessage = new SendGridMessage();
 
                 // Add the message properties.
-                myMessage.From = new MailAddress("john@example.com");
+                myMessage.From = new MailAddress(emailEntity.From);
 
                 // Add multiple addresses to the To field.
                 List<String> recipients = new List<String>
                 {
-                    @"Jeff Smith <jeff@example.com>",
-                    @"Anna Lidman <anna@example.com>",
-                    @"Peter Saddow <peter@example.com>"
+                    emailEntity.To
                 };
-
                 myMessage.AddTo(recipients);
 
-                myMessage.Subject = "Testing the SendGrid Library";
+                myMessage.Subject = emailEntity.Subject;
 
                 //Add the HTML and Text bodies
-                myMessage.Html = "<p>Hello World!</p>";
-                myMessage.Text = "Hello World plain text!";
+                myMessage.Html = emailEntity.Body;
+                //myMessage.Text = "Hello World plain text!";
 
                 // Create network credentials to access your SendGrid account
-                var username = "your_sendgrid_username";
-                var pswd = "your_sendgrid_password";
+                var username = ConfigurationManager.AppSettings["SendGridUser"];
+                var pswd = ConfigurationManager.AppSettings["SendGridPwd"];
 
                 var credentials = new NetworkCredential(username, pswd);
                 // Create an Web transport for sending email.

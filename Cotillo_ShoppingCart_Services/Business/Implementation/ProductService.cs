@@ -27,7 +27,7 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
             _imageService = imageService;
         }
 
-        public override async Task<IList<ProductEntity>> GetAll(int page = 0, int pageSize = int.MaxValue, bool active = true)
+        public override async Task<IList<ProductEntity>> GetAllAsync(int page = 0, int pageSize = int.MaxValue, bool active = true)
         {
             try
             {

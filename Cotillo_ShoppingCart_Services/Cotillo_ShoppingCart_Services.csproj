@@ -167,6 +167,7 @@
     <Compile Include="Business\Implementation\MessageService.cs" />
     <Compile Include="Business\Implementation\ProductService.cs" />
     <Compile Include="Business\Implementation\SendGridEmailProvider.cs" />
+    <Compile Include="Business\Implementation\UserService.cs" />
     <Compile Include="Business\Interface\ICRUDCommonService.cs" />
     <Compile Include="Business\Interface\ICustomerService.cs" />
     <Compile Include="Business\Interface\IEmailProvider.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Business\Interface\IMessageService.cs" />
     <Compile Include="Business\Interface\IProductService.cs" />
     <Compile Include="Business\Interface\IQueueMessageService.cs" />
+    <Compile Include="Business\Interface\IUserService.cs" />
     <Compile Include="Caching\Extension\CacheExtension.cs" />
     <Compile Include="Caching\Implementation\RedisCacheManager.cs" />
     <Compile Include="Caching\Interface\ICacheManager.cs" />
