@@ -210,3 +210,8 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/Cotillo_ShoppingCart_Azure/Web.Release.config
+/Cotillo_ShoppingCart_Azure/Web.config
+/Cotillo_ShoppingCart_Azure/Web.Debug.config
+/Cotillo_ShoppingCart_Email_WebJob/App.config
+/Cotillo_ShoppingCart_Services/App.config
