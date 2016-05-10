@@ -11,5 +11,6 @@ namespace Cotillo_ShoppingCart_Services.Business.Interface
     {
         Task<IList<ProductEntity>> GetAllProductsAsync(int page = 0, int pageSize = int.MaxValue, bool active = true, bool includeImage = false);
         Task<IList<ProductEntity>> GetAllByCategory(int categoryId, bool active = true, bool includeImage = false);
+        Task<ProductEntity> GetByBarcodeAsync(string barcode);
     }
 }

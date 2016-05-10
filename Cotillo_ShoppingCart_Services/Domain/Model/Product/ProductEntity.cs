@@ -15,5 +15,7 @@ namespace Cotillo_ShoppingCart_Services.Domain.Model.Product
         public DateTime ExpiresOn { get; set; }
         public int CategoryId { get; set; }
         public virtual CategoryEntity Category { get; set; }
+        public double PriceIncTax { get; set; }
+        public double PriceExcTax { get; set; }
     }
 }

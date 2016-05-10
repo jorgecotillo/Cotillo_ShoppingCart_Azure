@@ -103,5 +103,21 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
                 throw;
             }
         }
+
+        public async Task<ProductEntity> GetByBarcodeAsync(string barcode)
+        {
+            try
+            {
+                return await _productRepository
+                    .Table
+                    .Where(i => i.Barcode == barcode)
+                    .FirstOrDefaultAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

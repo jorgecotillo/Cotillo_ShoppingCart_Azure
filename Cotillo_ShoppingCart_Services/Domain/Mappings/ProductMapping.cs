@@ -33,6 +33,12 @@ namespace Cotillo_ShoppingCart_Services.Domain.Mappings
 
             this.Ignore(i => i.Image);
 
+            this.Property(i => i.PriceExcTax)
+                .IsOptional();
+
+            this.Property(i => i.PriceIncTax)
+                .IsRequired();
+
             this.Property(i => i.Active)
                     .IsRequired();
 

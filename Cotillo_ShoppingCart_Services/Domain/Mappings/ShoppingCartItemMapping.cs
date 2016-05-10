@@ -29,6 +29,9 @@ namespace Cotillo_ShoppingCart_Services.Domain.Mappings
             this.Property(i => i.PriceExcTax)
                 .IsOptional();
 
+            this.Property(i => i.PriceIncTax)
+                .IsRequired();
+
             this.Property(i => i.Active)
                     .IsRequired();
 

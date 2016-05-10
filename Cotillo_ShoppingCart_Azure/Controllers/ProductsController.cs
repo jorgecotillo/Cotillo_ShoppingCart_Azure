@@ -84,6 +84,25 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="barcode"></param>
+        /// <returns></returns>
+        [Route("barcode/{barcode}")]
+        public async Task<IHttpActionResult> GetByBarcode(string barcode)
+        {
+            try
+            {
+                var product = await _productService.GetByBarcodeAsync(barcode);
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+                return new InternalServerErrorResult(Request);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPut]
