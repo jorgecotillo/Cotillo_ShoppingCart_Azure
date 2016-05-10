@@ -14,10 +14,11 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
     /// <summary>
     /// 
     /// </summary>
+    [RoutePrefix("api/v1/products")]
     public class ProductsController : ApiController
     {
         readonly IProductService _productService;
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -35,7 +36,29 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         {
             try
             {
-                var allProductInfo = await _productService.GetAllAsync();
+                var allProductInfo = await _productService.GetAllProductsAsync(includeImage: true);
+
+                //Translate Product from Service into Product Model using an extension method
+                return Ok(allProductInfo.ToProductModelList());
+            }
+            catch (Exception ex)
+            {
+                //log the exception
+
+                return new InternalServerErrorResult(Request);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Route("no-image")]
+        public async Task<IHttpActionResult> GetProductsWithoutImages()
+        {
+            try
+            {
+                var allProductInfo = await _productService.GetAllProductsAsync(includeImage: false);
 
                 //Translate Product from Service into Product Model using an extension method
                 return Ok(allProductInfo.ToProductModelList());
@@ -54,25 +77,6 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task<IHttpActionResult> Get(int id)
-        {
-            return Ok();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="categoryId"></param>
-        /// <returns></returns>
-        public async Task<IHttpActionResult> GetByCategory(int categoryId)
-        {
-            return Ok();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IHttpActionResult> GetAllProductCategories()
         {
             return Ok();
         }

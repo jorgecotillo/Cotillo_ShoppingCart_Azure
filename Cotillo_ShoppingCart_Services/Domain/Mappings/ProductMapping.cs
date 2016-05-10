@@ -43,7 +43,7 @@ namespace Cotillo_ShoppingCart_Services.Domain.Mappings
                     .IsRequired();
 
             this.HasRequired(i => i.Category)
-                .WithMany()
+                .WithMany(c => c.Products)
                 .HasForeignKey(i => i.CategoryId)
                 .WillCascadeOnDelete(false);
         }

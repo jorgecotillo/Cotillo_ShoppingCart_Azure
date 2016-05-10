@@ -50,6 +50,7 @@ namespace Cotillo_ShoppingCart_Services.IoCContainer
             container.Register<IOrderService, OrderService>(Lifestyle.Scoped);
             container.Register<IPaymentService, PaypalPaymentService>(Lifestyle.Scoped);
             container.Register<IShoppingCartService, ShoppingCartService>(Lifestyle.Scoped);
+            container.Register<ICategoryService, CategoryService>(Lifestyle.Scoped);
             
             //Enable Redis Cache
             container.Register<ICacheManager>(() => 

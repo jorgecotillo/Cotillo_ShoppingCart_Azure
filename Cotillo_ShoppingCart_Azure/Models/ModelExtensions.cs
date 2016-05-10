@@ -1,4 +1,5 @@
 ﻿using Cotillo_ShoppingCart_Models;
+using Cotillo_ShoppingCart_Services.Domain.DTO;
 using Cotillo_ShoppingCart_Services.Domain.Model.Product;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,45 @@ namespace Cotillo_ShoppingCart_Azure.Models
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categorySummary"></param>
+        /// <returns></returns>
+        public static CategorySummaryModel ToCategorySummaryModel(this CategorySummaryDTO categorySummary)
+        {
+            if (categorySummary != null)
+            {
+                return new CategorySummaryModel()
+                {
+                    CategoryName = categorySummary.CategoryName,
+                    ProductCount = categorySummary.ProductCount
+                };
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoriesSummary"></param>
+        /// <returns></returns>
+        public static IList<CategorySummaryModel> ToCategorySummaryModelList(this IList<CategorySummaryDTO> categoriesSummary)
+        {
+            List<CategorySummaryModel> categorySummaryList = new List<CategorySummaryModel>();
+            CategorySummaryModel model = null;
+            foreach (var item in categoriesSummary)
+            {
+                model = item.ToCategorySummaryModel();
+                if (model != null)
+                    categorySummaryList.Add(model);
+            }
+            return categorySummaryList;
         }
     }
 }

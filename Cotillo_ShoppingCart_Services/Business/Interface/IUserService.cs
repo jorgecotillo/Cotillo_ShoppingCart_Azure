@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,5 +12,7 @@ namespace Cotillo_ShoppingCart_Services.Business.Interface
     {
         void CreateUser(UserEntity user);
         Task CreateUserAsync(UserEntity user);
+
+        Task<UserEntity> GetByFilterAsync(Expression<Func<UserEntity, bool>> where);
     }
 }

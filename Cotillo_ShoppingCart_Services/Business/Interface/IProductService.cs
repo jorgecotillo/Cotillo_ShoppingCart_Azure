@@ -9,5 +9,7 @@ namespace Cotillo_ShoppingCart_Services.Business.Interface
 {
     public interface IProductService : ICRUDCommonService<ProductEntity>
     {
+        Task<IList<ProductEntity>> GetAllProductsAsync(int page = 0, int pageSize = int.MaxValue, bool active = true, bool includeImage = false);
+        Task<IList<ProductEntity>> GetAllByCategory(int categoryId, bool active = true, bool includeImage = false);
     }
 }

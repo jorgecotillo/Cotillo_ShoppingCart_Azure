@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using Cotillo_ShoppingCart_Services.Domain.Model.User;
 using Cotillo_ShoppingCart_Services.Integration.Interfaces.EF;
 using Microsoft.AspNet.Identity;
+using System.Linq.Expressions;
+using LinqKit;
+using System.Data.Entity;
 
 namespace Cotillo_ShoppingCart_Services.Business.Implementation
 {
@@ -42,6 +45,26 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
                 string hashedPassword = passwordHasher.HashPassword(user.Password);
                 user.Password = hashedPassword;
                 await _userRepository.InsertAsync(user, autoCommit: true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<UserEntity> GetByFilterAsync(Expression<Func<UserEntity, bool>> where)
+        {
+            try
+            {
+                //Using AsExpandable from Linkit so that EF (Linq To Entities) can resolve in runtime the dynamic filter,
+                //otherwise Linq To Entities will throw an exception.
+                return
+                    await _userRepository
+                        .Table
+                        .AsExpandable()
+                        .Where(where)
+                        .Select(i => i)
+                        .FirstOrDefaultAsync();
             }
             catch (Exception)
             {

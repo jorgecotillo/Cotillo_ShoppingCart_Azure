@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategorySummaryModel.cs" />
     <Compile Include="ExtendedUserInfoModel.cs" />
     <Compile Include="GenericApiResult.cs" />
     <Compile Include="ProductModel.cs" />

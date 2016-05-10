@@ -1,9 +1,12 @@
 ﻿using Cotillo_ShoppingCart_Models;
+using Cotillo_ShoppingCart_Services.Business.Interface;
+using Cotillo_ShoppingCart_Services.Domain.Model.User;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Security.Principal;
@@ -18,6 +21,11 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
     [RoutePrefix("api/v1/account")]
     public class AccountController : ApiController
     {
+        readonly IUserService _userService;
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -59,6 +67,18 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         {
             try
             {
+                //First verify if the user exists in the database, if not return an error (Not Found)
+                //var user = _userService.
+
+                Expression<Func<UserEntity, bool>> where = i => i.UserName == this.User.Identity.Name;
+
+                var user = await _userService.GetByFilterAsync(where);
+
+                if(user == null)
+                {
+                    return NotFound();
+                }
+
                 // Service User is an implementation of IPrincipal 
                 // Defines how the user is authenticated
                 // Obtained via a Cast of the User property from the ApiController derived class
@@ -92,7 +112,7 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
                 if (extendedUserInfo != null)
                     return Ok(extendedUserInfo);
                 else
-                    return NotFound();
+                    return InternalServerError();
             }
             catch (Exception ex)
             {

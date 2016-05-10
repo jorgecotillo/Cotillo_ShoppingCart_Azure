@@ -42,6 +42,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LinqKit, Version=1.1.3.1, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.1.3.1\lib\net45\LinqKit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -166,6 +170,7 @@
   <ItemGroup>
     <Compile Include="Business\Implementation\AzureBlobImageService.cs" />
     <Compile Include="Business\Implementation\AzureQueueMessageService.cs" />
+    <Compile Include="Business\Implementation\CategoryService.cs" />
     <Compile Include="Business\Implementation\CRUDCommonService.cs" />
     <Compile Include="Business\Implementation\CustomerService.cs" />
     <Compile Include="Business\Implementation\MessageService.cs" />
@@ -175,6 +180,7 @@
     <Compile Include="Business\Implementation\SendGridEmailProvider.cs" />
     <Compile Include="Business\Implementation\ShoppingCartService.cs" />
     <Compile Include="Business\Implementation\UserService.cs" />
+    <Compile Include="Business\Interface\ICategoryService.cs" />
     <Compile Include="Business\Interface\ICRUDCommonService.cs" />
     <Compile Include="Business\Interface\ICustomerService.cs" />
     <Compile Include="Business\Interface\IEmailProvider.cs" />
@@ -189,6 +195,7 @@
     <Compile Include="Caching\Extension\CacheExtension.cs" />
     <Compile Include="Caching\Implementation\RedisCacheManager.cs" />
     <Compile Include="Caching\Interface\ICacheManager.cs" />
+    <Compile Include="Domain\DTO\CategorySummaryDTO.cs" />
     <Compile Include="Domain\Mappings\AddressMapping.cs" />
     <Compile Include="Domain\Mappings\CategoryMapping.cs" />
     <Compile Include="Domain\Mappings\CountryMapping.cs" />
