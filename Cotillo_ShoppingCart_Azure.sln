@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotillo_ShoppingCart_Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotillo_ShoppingCart_Email_WebJob", "Cotillo_ShoppingCart_Email_WebJob\Cotillo_ShoppingCart_Email_WebJob.csproj", "{F5D524F0-103A-461D-B7C0-651AA2514B1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotillo_ShoppingCart_Models", "Cotillo_ShoppingCart_Models\Cotillo_ShoppingCart_Models.csproj", "{4556A5FA-04F3-4793-9693-2BAFE8890CC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F5D524F0-103A-461D-B7C0-651AA2514B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5D524F0-103A-461D-B7C0-651AA2514B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5D524F0-103A-461D-B7C0-651AA2514B1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4556A5FA-04F3-4793-9693-2BAFE8890CC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4556A5FA-04F3-4793-9693-2BAFE8890CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4556A5FA-04F3-4793-9693-2BAFE8890CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4556A5FA-04F3-4793-9693-2BAFE8890CC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

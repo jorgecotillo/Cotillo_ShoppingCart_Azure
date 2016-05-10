@@ -149,9 +149,9 @@
       <HintPath>..\packages\WindowsAzure.MobileServices.1.3.2\lib\net45\Microsoft.WindowsAzure.Mobile.Ext.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -269,9 +269,7 @@
     <Compile Include="Helpers\OAuthBase.cs" />
     <Compile Include="Helpers\OAuthMessageHandler.cs" />
     <Compile Include="Identity\ApplicationRoleManager.cs" />
-    <Compile Include="Models\ExtendedUserInfoModel.cs" />
     <Compile Include="Models\ModelExtensions.cs" />
-    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -286,6 +284,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cotillo_ShoppingCart_Models\Cotillo_ShoppingCart_Models.csproj">
+      <Project>{4556a5fa-04f3-4793-9693-2bafe8890cc9}</Project>
+      <Name>Cotillo_ShoppingCart_Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cotillo_ShoppingCart_Services\Cotillo_ShoppingCart_Services.csproj">
       <Project>{5e373e58-699a-4ced-b0c5-0803ba65e305}</Project>
       <Name>Cotillo_ShoppingCart_Services</Name>

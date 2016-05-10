@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cotillo_ShoppingCart_Azure.Models
+namespace Cotillo_ShoppingCart_Models
 {
     /// <summary>
     /// Defines the data we are gathering from the twitter IDP
