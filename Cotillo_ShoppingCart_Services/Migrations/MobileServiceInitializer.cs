@@ -24,6 +24,11 @@ namespace Cotillo_ShoppingCart_Services.Migrations
 
         protected override void Seed(EFContext context)
         {
+            //Product Seed Data
+
+            //Set the value to compare with
+            Expression<Func<ProductEntity, object>> filter = i => i.Barcode;
+
             IRepository<ProductEntity> productRepository = new EFRepository<ProductEntity>(context);
 
             ProductEntity productEntity = new ProductEntity()
@@ -44,8 +49,25 @@ namespace Cotillo_ShoppingCart_Services.Migrations
                 }
             };
 
-            //Set the value to compare with
-            Expression<Func<ProductEntity, object>> filter = i => i.Barcode;
+            productRepository.AddOrUpdate(filter, productEntity);
+
+            productEntity = new ProductEntity()
+            {
+                Active = true,
+                CreatedOn = DateTime.Now,
+                FileName = "APictureFile1.jpg",
+                LastUpdated = DateTime.Now,
+                Name = "Another Milk",
+                Barcode = "DEF",
+                ExpiresOn = DateTime.Now.AddDays(15),
+                Category = new CategoryEntity()
+                {
+                    Active = true,
+                    CreatedOn = DateTime.Now,
+                    LastUpdated = DateTime.Now,
+                    Name = "Groceries"
+                }
+            };
 
             productRepository.AddOrUpdate(filter, productEntity);
         }
