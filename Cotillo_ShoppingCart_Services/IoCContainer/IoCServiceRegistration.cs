@@ -5,6 +5,7 @@ using Cotillo_ShoppingCart_Services.Caching.Interface;
 using Cotillo_ShoppingCart_Services.Integration.Implementation.EF;
 using Cotillo_ShoppingCart_Services.Integration.Interfaces.EF;
 using SimpleInjector;
+using System.Configuration;
 
 namespace Cotillo_ShoppingCart_Services.IoCContainer
 {
@@ -40,22 +41,24 @@ namespace Cotillo_ShoppingCart_Services.IoCContainer
 
             //Register Services here
             container.Register<IProductService, ProductService>(Lifestyle.Scoped);
-
             container.Register<IImageService, AzureBlobImageService>(Lifestyle.Scoped);
-
             container.Register<IQueueMessageService, AzureQueueMessageService>(Lifestyle.Scoped);
-
             container.Register<IEmailProvider, SendGridEmailProvider>(Lifestyle.Scoped);
-
             container.Register<IMessageService, MessageService>(Lifestyle.Scoped);
+            container.Register<IUserService, UserService>(Lifestyle.Scoped);
+            container.Register<ICustomerService, CustomerService>(Lifestyle.Scoped);
+            container.Register<IOrderService, OrderService>(Lifestyle.Scoped);
+            container.Register<IPaymentService, PaypalPaymentService>(Lifestyle.Scoped);
+            container.Register<IProductService, ProductService>(Lifestyle.Scoped);
+            container.Register<IShoppingCartService, ShoppingCartService>(Lifestyle.Scoped);
             
             //Enable Redis Cache
             container.Register<ICacheManager>(() => 
                 new RedisCacheManager(
-                    redisServerURI: "jcshoppingcart.redis.cache.windows.net", 
+                    redisServerURI: ConfigurationManager.AppSettings["RedisServerURI"], 
                     port: 6380, 
                     ssl: true, 
-                    password: "FGYbVlp0YFTdHFVWEV0FSW04pG6qCt2IqpMApJ+fkLM="), Lifestyle.Scoped);
+                    password: ConfigurationManager.AppSettings["RedisPassword"]), Lifestyle.Scoped);
         }
     }
 }
