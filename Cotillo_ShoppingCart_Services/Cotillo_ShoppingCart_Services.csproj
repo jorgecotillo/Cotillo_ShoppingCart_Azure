@@ -99,6 +99,10 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PayPal, Version=1.7.3.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.7.3\lib\net451\PayPal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SendGrid, Version=6.3.4.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
       <HintPath>..\packages\Sendgrid.6.3.4\lib\SendGrid.dll</HintPath>
       <Private>True</Private>
@@ -165,16 +169,22 @@
     <Compile Include="Business\Implementation\CRUDCommonService.cs" />
     <Compile Include="Business\Implementation\CustomerService.cs" />
     <Compile Include="Business\Implementation\MessageService.cs" />
+    <Compile Include="Business\Implementation\OrderService.cs" />
+    <Compile Include="Business\Implementation\PaypalPaymentService.cs" />
     <Compile Include="Business\Implementation\ProductService.cs" />
     <Compile Include="Business\Implementation\SendGridEmailProvider.cs" />
+    <Compile Include="Business\Implementation\ShoppingCartService.cs" />
     <Compile Include="Business\Implementation\UserService.cs" />
     <Compile Include="Business\Interface\ICRUDCommonService.cs" />
     <Compile Include="Business\Interface\ICustomerService.cs" />
     <Compile Include="Business\Interface\IEmailProvider.cs" />
     <Compile Include="Business\Interface\IImageService.cs" />
     <Compile Include="Business\Interface\IMessageService.cs" />
+    <Compile Include="Business\Interface\IOrderService.cs" />
+    <Compile Include="Business\Interface\IPaymentService.cs" />
     <Compile Include="Business\Interface\IProductService.cs" />
     <Compile Include="Business\Interface\IQueueMessageService.cs" />
+    <Compile Include="Business\Interface\IShoppingCartService.cs" />
     <Compile Include="Business\Interface\IUserService.cs" />
     <Compile Include="Caching\Extension\CacheExtension.cs" />
     <Compile Include="Caching\Implementation\RedisCacheManager.cs" />
@@ -182,7 +192,10 @@
     <Compile Include="Domain\Mappings\AddressMapping.cs" />
     <Compile Include="Domain\Mappings\CategoryMapping.cs" />
     <Compile Include="Domain\Mappings\CountryMapping.cs" />
+    <Compile Include="Domain\Mappings\OrderItemMapping.cs" />
+    <Compile Include="Domain\Mappings\OrderMapping.cs" />
     <Compile Include="Domain\Mappings\ProductMapping.cs" />
+    <Compile Include="Domain\Mappings\ShoppingCartItemMapping.cs" />
     <Compile Include="Domain\Mappings\StateProvinceMapping.cs" />
     <Compile Include="Domain\Mappings\UserMapping.cs" />
     <Compile Include="Domain\Model\Address\AddressEntity.cs" />
@@ -191,7 +204,11 @@
     <Compile Include="Domain\Mappings\EmployeeMapping.cs" />
     <Compile Include="Domain\Mappings\CustomerMapping.cs" />
     <Compile Include="Domain\Model\Customer\CustomerEntity.cs" />
+    <Compile Include="Domain\Model\Customer\PaymentInfo.cs" />
     <Compile Include="Domain\Model\Message\EmailEntity.cs" />
+    <Compile Include="Domain\Model\Order\OrderEntity.cs" />
+    <Compile Include="Domain\Model\Order\OrderItemEntity.cs" />
+    <Compile Include="Domain\Model\Order\ShoppingCartItemEntity.cs" />
     <Compile Include="Domain\Model\Product\CategoryEntity.cs" />
     <Compile Include="Domain\Model\Product\ProductEntity.cs" />
     <Compile Include="Domain\Model\State\StateProvinceEntity.cs" />
@@ -220,7 +237,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\Model\Language\" />
-    <Folder Include="Domain\Model\Order\" />
     <Folder Include="Domain\Model\Store\" />
   </ItemGroup>
   <ItemGroup>

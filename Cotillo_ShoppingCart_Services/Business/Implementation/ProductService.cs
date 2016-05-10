@@ -36,7 +36,7 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
 
                 foreach (var item in allProducts)
                 {
-                    //Now let's call the cached image
+                    //Now let's call the image and retrieve it from the cache or cache it if it doesn't exists
                     item.Image = GetImage(item.Barcode, item.FileName);
                 }
 
@@ -50,6 +50,7 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
 
         private byte[] GetImage(string barcode, string fileName)
         {
+            //Get or Set cached item
             string base64String = 
                 _cacheManager.Get(barcode, () =>
                 {
