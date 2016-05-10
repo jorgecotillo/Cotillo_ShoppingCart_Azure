@@ -48,25 +48,54 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
             }
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IHttpActionResult> Get(int id)
         {
-            return "value";
+            return Ok();
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        public async Task<IHttpActionResult> GetByCategory(int categoryId)
         {
+            return Ok();
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IHttpActionResult> GetAllProductCategories()
         {
+            return Ok();
         }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<IHttpActionResult> Put(int id, [FromBody] string value)
         {
+            return Ok();
+        }
+
+        public async Task<IHttpActionResult> Delete(int id)
+        {
+            return Ok();
+        }
+        
+        public async Task<IHttpActionResult> Post()
+        {
+            return Ok();
         }
     }
 }
