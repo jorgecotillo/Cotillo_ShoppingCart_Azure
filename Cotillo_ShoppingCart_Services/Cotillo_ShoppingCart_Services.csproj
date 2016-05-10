@@ -236,6 +236,10 @@
     <Compile Include="Migrations\201605100353594_Additional_Table_Update_05_09_2016.Designer.cs">
       <DependentUpon>201605100353594_Additional_Table_Update_05_09_2016.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605102105127_Additional_Update_05_10_16.cs" />
+    <Compile Include="Migrations\201605102105127_Additional_Update_05_10_16.Designer.cs">
+      <DependentUpon>201605102105127_Additional_Update_05_10_16.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\MobileServiceInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -256,6 +260,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605100353594_Additional_Table_Update_05_09_2016.resx">
       <DependentUpon>201605100353594_Additional_Table_Update_05_09_2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605102105127_Additional_Update_05_10_16.resx">
+      <DependentUpon>201605102105127_Additional_Update_05_10_16.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
