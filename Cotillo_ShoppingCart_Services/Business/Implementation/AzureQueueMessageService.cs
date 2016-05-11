@@ -8,6 +8,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 using Cotillo_ShoppingCart_Services.Business.Interface;
+using System.Configuration;
 
 namespace Cotillo_ShoppingCart_Services.Business.Implementation
 {
@@ -18,14 +19,14 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
             try
             {
                 // Retrieve storage account from connection string.
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-                    CloudConfigurationManager.GetSetting("StorageConnectionString"));
+                CloudStorageAccount storageAccount = CloudStorageAccount
+                    .Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
 
                 // Create the queue client.
                 CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
 
                 // Retrieve a reference to a queue.
-                CloudQueue queue = queueClient.GetQueueReference(queueReference);
+                CloudQueue queue = queueClient.GetQueueReference(queueReference.ToLower());
 
                 // Create the queue if it doesn't already exist.
                 queue.CreateIfNotExists();
@@ -40,7 +41,7 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
                 CloudQueueMessage queueMessage = new CloudQueueMessage(messageToQueue);
                 queue.AddMessage(queueMessage);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }

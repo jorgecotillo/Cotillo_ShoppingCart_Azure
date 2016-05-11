@@ -48,7 +48,9 @@ namespace Cotillo_ShoppingCart_Azure.Models
                     Name = productEntity.Name,
                     CreatedDate = productEntity.CreatedOn,
                     Image = productEntity.Image,
-                    Description = "",
+                    Description = productEntity.Description,
+                    ExpiresOn = productEntity.ExpiresOn.ToShortDateString(),
+                    Location = productEntity.Location,
                     PriceIncTax = productEntity.PriceIncTax,
                     PriceExcTax = productEntity.PriceExcTax
                 };
@@ -105,7 +107,7 @@ namespace Cotillo_ShoppingCart_Azure.Models
                 return new ExtendedUserInfoModel()
                 {
                     UserId = userEntity.Id.ToString(),
-                    Name = userEntity.UserName
+                    Name = userEntity.DisplayName
                 };
             }
             else

@@ -240,14 +240,15 @@
     <Compile Include="Migrations\201605102105127_Additional_Update_05_10_16.Designer.cs">
       <DependentUpon>201605102105127_Additional_Update_05_10_16.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605111554423_Additional_Update_05_11_2016.cs" />
+    <Compile Include="Migrations\201605111554423_Additional_Update_05_11_2016.Designer.cs">
+      <DependentUpon>201605111554423_Additional_Update_05_11_2016.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\MobileServiceInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605102105127_Additional_Update_05_10_16.resx">
       <DependentUpon>201605102105127_Additional_Update_05_10_16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605111554423_Additional_Update_05_11_2016.resx">
+      <DependentUpon>201605111554423_Additional_Update_05_11_2016.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

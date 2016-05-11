@@ -18,5 +18,6 @@ namespace Cotillo_ShoppingCart_Services.Domain.Model.Product
         public double PriceIncTax { get; set; }
         public double PriceExcTax { get; set; }
         public string Description { get; set; }
+        public string Location { get; set; }
     }
 }

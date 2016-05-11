@@ -16,8 +16,12 @@ namespace Cotillo_ShoppingCart_Services.Domain.Mappings
 
             this.HasKey(i => i.Id);
 
-            this.Property(i => i.UserName)
+            this.Property(i => i.DisplayName)
                 .HasMaxLength(255)
+                .IsRequired();
+
+            this.Property(i => i.UserName)
+                .HasMaxLength(150)
                 .IsRequired();
 
             this.Property(i => i.ExternalAccount)

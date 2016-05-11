@@ -22,9 +22,11 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
     public class AccountController : ApiController
     {
         readonly IUserService _userService;
-        public AccountController(IUserService userService)
+        readonly IMessageService _messageService;
+        public AccountController(IUserService userService, IMessageService messageService)
         {
             _userService = userService;
+            _messageService = messageService;
         }
         /// <summary>
         /// 
@@ -34,17 +36,35 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         [Route("external")]
         public async Task<IHttpActionResult> RegisterExternalLogin([FromBody] RegisterExternalModel model)
         {
-            await
-                _userService.SaveAsync(new UserEntity()
+            try
+            {
+                await
+                    _userService.SaveAsync(new UserEntity()
+                    {
+                        Active = true,
+                        CreatedOn = DateTime.Now,
+                        LastUpdated = DateTime.Now,
+                        Password = "",
+                        DisplayName = model.Name,
+                        UserName = model.Username,
+                        ExternalAccount = model.ExternalAccount
+                    }, autoCommit: true);
+
+                //Let's queue the email
+                _messageService.QueueEmail(new Cotillo_ShoppingCart_Services.Domain.Model.Message.EmailEntity()
                 {
-                    Active = true,
-                    CreatedOn = DateTime.Now,
-                    LastUpdated = DateTime.Now,
-                    Password = "",
-                    UserName = model.Username,
-                    ExternalAccount = model.ExternalAccount
-                }, autoCommit: true);
-            return Ok();
+                    Subject = "Welcome to the store!",
+                    Body = "This email confirms that your account got successfully registered",
+                    From = "no-reply@mystore.com",
+                    To = model.Username,
+                    CC = new List<string>() { "jorge.cotillo@gmail.com" }
+                });
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         /// <summary>
