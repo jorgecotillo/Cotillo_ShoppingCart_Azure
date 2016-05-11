@@ -39,6 +39,10 @@ namespace Cotillo_ShoppingCart_Services.Domain.Mappings
             this.Property(i => i.PriceIncTax)
                 .IsRequired();
 
+            this.Property(i => i.Description)
+                .HasMaxLength(255)
+                .IsRequired();
+
             this.Property(i => i.Active)
                     .IsRequired();
 

@@ -66,7 +66,7 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
                         .Select(i => i)
                         .FirstOrDefaultAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }

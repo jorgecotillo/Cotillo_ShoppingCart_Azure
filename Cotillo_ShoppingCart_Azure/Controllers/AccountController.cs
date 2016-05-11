@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web.Http;
-
+using Cotillo_ShoppingCart_Azure.Models;
 namespace Cotillo_ShoppingCart_Azure.Controllers
 {
     /// <summary>
@@ -31,8 +31,19 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IHttpActionResult> RegisterExternalLogin()
+        [Route("external")]
+        public async Task<IHttpActionResult> RegisterExternalLogin([FromBody] RegisterExternalModel model)
         {
+            await
+                _userService.SaveAsync(new UserEntity()
+                {
+                    Active = true,
+                    CreatedOn = DateTime.Now,
+                    LastUpdated = DateTime.Now,
+                    Password = "",
+                    UserName = model.Username,
+                    ExternalAccount = model.ExternalAccount
+                }, autoCommit: true);
             return Ok();
         }
 
@@ -56,6 +67,40 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
             return Ok();
         }
 
+        [Route("external-user/{userId}")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> ExternalUserExists(string userId)
+        {
+            try
+            {
+                //Verify if the user exists in the database, if not return an error (Not Found)
+                userId = $"sid:{userId}";
+                //using an already evaluated variable otherwise LINQ will try to evaluate the format and will throw an exception (lazy evaluation)
+                Expression<Func<UserEntity, bool>> where = i => i.ExternalAccount == userId;
+
+                var user = await _userService.GetByFilterAsync(where);
+
+                if (user == null)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound)
+                    {
+                        Content = new StringContent("No user")
+                    };
+                }
+                else
+                {
+                    return new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent(JsonConvert.SerializeObject(user.ToUserInfoModel()))
+                    };
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -63,22 +108,10 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         //[Authorize]
         [Route("external-info")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetExternalUserInfo()
+        public async Task<HttpResponseMessage> GetExternalUserInfo()
         {
             try
             {
-                //First verify if the user exists in the database, if not return an error (Not Found)
-                //var user = _userService.
-
-                Expression<Func<UserEntity, bool>> where = i => i.UserName == this.User.Identity.Name;
-
-                var user = await _userService.GetByFilterAsync(where);
-
-                if(user == null)
-                {
-                    return NotFound();
-                }
-
                 // Service User is an implementation of IPrincipal 
                 // Defines how the user is authenticated
                 // Obtained via a Cast of the User property from the ApiController derived class
@@ -110,13 +143,16 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
                     }
                 }
                 if (extendedUserInfo != null)
-                    return Ok(extendedUserInfo);
+                    return new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent(JsonConvert.SerializeObject(extendedUserInfo))
+                    };
                 else
-                    return InternalServerError();
+                    return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
         }
     }

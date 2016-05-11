@@ -104,14 +104,18 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
             }
         }
 
-        public async Task<ProductEntity> GetByBarcodeAsync(string barcode)
+        public async Task<ProductEntity> GetByBarcodeAsync(string barcode, bool includeImage = false)
         {
             try
             {
-                return await _productRepository
-                    .Table
-                    .Where(i => i.Barcode == barcode)
-                    .FirstOrDefaultAsync();
+                var product = await _productRepository
+                                    .Table
+                                    .Where(i => i.Barcode == barcode)
+                                    .FirstOrDefaultAsync();
+                if(includeImage)
+                    product.Image = GetImage(product.Barcode, product.FileName);
+
+                return product;
             }
             catch (Exception)
             {

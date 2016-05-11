@@ -20,6 +20,10 @@ namespace Cotillo_ShoppingCart_Services.Domain.Mappings
                 .HasMaxLength(255)
                 .IsRequired();
 
+            this.Property(i => i.ExternalAccount)
+                .HasMaxLength(255)
+                .IsOptional();
+
             this.Property(i => i.Active)
                     .IsRequired();
 

@@ -15,5 +15,6 @@ namespace Cotillo_ShoppingCart_Models
         /// 
         /// </summary>
         public string Username { get; set; }
+        public string ExternalAccount { get; set; }
     }
 }

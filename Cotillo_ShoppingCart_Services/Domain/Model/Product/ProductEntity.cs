@@ -17,5 +17,6 @@ namespace Cotillo_ShoppingCart_Services.Domain.Model.Product
         public virtual CategoryEntity Category { get; set; }
         public double PriceIncTax { get; set; }
         public double PriceExcTax { get; set; }
+        public string Description { get; set; }
     }
 }

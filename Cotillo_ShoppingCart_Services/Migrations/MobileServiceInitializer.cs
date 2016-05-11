@@ -39,6 +39,7 @@ namespace Cotillo_ShoppingCart_Services.Migrations
                 LastUpdated = DateTime.Now,
                 Name = "Milk",
                 Barcode = "720473600209",
+                Description = "Milk description",
                 ExpiresOn = DateTime.Now.AddDays(15),
                 Category = new CategoryEntity()
                 {
@@ -59,6 +60,7 @@ namespace Cotillo_ShoppingCart_Services.Migrations
                 LastUpdated = DateTime.Now,
                 Name = "Another Milk",
                 Barcode = "381370035268",
+                Description = "Another milk description",
                 ExpiresOn = DateTime.Now.AddDays(15),
                 Category = new CategoryEntity()
                 {

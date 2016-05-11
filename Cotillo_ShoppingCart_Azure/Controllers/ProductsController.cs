@@ -91,8 +91,11 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         {
             try
             {
-                var product = await _productService.GetByBarcodeAsync(barcode);
-                return Ok(product);
+                var product = await _productService.GetByBarcodeAsync(barcode, includeImage: true);
+                if (product != null)
+                    return Ok(product.ToProductModel());
+                else
+                    return NotFound();
             }
             catch (Exception ex)
             {

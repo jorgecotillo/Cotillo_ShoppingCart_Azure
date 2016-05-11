@@ -1,6 +1,7 @@
 ﻿using Cotillo_ShoppingCart_Models;
 using Cotillo_ShoppingCart_Services.Domain.DTO;
 using Cotillo_ShoppingCart_Services.Domain.Model.Product;
+using Cotillo_ShoppingCart_Services.Domain.Model.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,10 @@ namespace Cotillo_ShoppingCart_Azure.Models
                     Id = productEntity.Id,
                     Name = productEntity.Name,
                     CreatedDate = productEntity.CreatedOn,
-                    Image = productEntity.Image
+                    Image = productEntity.Image,
+                    Description = "",
+                    PriceIncTax = productEntity.PriceIncTax,
+                    PriceExcTax = productEntity.PriceExcTax
                 };
             }
             else
@@ -92,6 +96,20 @@ namespace Cotillo_ShoppingCart_Azure.Models
                     categorySummaryList.Add(model);
             }
             return categorySummaryList;
+        }
+
+        public static ExtendedUserInfoModel ToUserInfoModel(this UserEntity userEntity)
+        {
+            if (userEntity != null)
+            {
+                return new ExtendedUserInfoModel()
+                {
+                    UserId = userEntity.Id.ToString(),
+                    Name = userEntity.UserName
+                };
+            }
+            else
+                return null;
         }
     }
 }
