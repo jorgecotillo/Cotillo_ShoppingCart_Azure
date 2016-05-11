@@ -38,7 +38,7 @@ namespace Cotillo_ShoppingCart_Services.Migrations
                 FileName = "APictureFile1.jpg",
                 LastUpdated = DateTime.Now,
                 Name = "Milk",
-                Barcode = "ABC",
+                Barcode = "720473600209",
                 ExpiresOn = DateTime.Now.AddDays(15),
                 Category = new CategoryEntity()
                 {
@@ -58,7 +58,7 @@ namespace Cotillo_ShoppingCart_Services.Migrations
                 FileName = "APictureFile1.jpg",
                 LastUpdated = DateTime.Now,
                 Name = "Another Milk",
-                Barcode = "DEF",
+                Barcode = "381370035268",
                 ExpiresOn = DateTime.Now.AddDays(15),
                 Category = new CategoryEntity()
                 {

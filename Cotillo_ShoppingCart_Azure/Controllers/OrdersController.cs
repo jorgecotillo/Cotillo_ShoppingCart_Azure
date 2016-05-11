@@ -60,9 +60,9 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
 
                 payment = new PaymentInfo()
                 {
-                    Address = "",
-                    City = "",
-                    Country = "",
+                    Address = checkoutModel.PaymentInfoModel.Address,
+                    City = checkoutModel.PaymentInfoModel.City,
+                    Country = checkoutModel.PaymentInfoModel.Country,
                     CreditCardNo = checkoutModel.PaymentInfoModel.CreditCardNo,
                     CVV2 = checkoutModel.PaymentInfoModel.CVV2
                 };

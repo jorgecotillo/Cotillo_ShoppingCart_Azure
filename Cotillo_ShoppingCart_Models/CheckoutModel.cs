@@ -14,6 +14,9 @@ namespace Cotillo_ShoppingCart_Models
 
     public class PaymentInfoModel
     {
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
         public string CreditCardNo { get; set; }
         public DateTime ExpireDate { get; set; }
         public int CVV2 { get; set; }
