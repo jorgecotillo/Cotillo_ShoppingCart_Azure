@@ -18,7 +18,6 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
     /// 
     /// </summary>
     [RoutePrefix("api/v1/orders")]
-    [Authorize]
     public class OrdersController : ApiController
     {
         readonly IOrderService _orderService;
