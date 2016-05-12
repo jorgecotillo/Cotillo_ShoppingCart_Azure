@@ -413,6 +413,11 @@ namespace Cotillo_ShoppingCart_Services.Integration.Implementation.EF
             Entities.AddOrUpdate(expression, entity);
         }
 
+        public void AddOrUpdate(TEntity entity)
+        {
+            Entities.AddOrUpdate(entity);
+        }
+
         private IDbSet<TEntity> Entities
         {
             get

@@ -26,5 +26,6 @@ namespace Cotillo_ShoppingCart_Services.Integration.Interfaces.EF
         void Commit();
         Task CommitAsync();
         void AddOrUpdate(Expression<Func<TEntity, object>> expression, TEntity entity);
+        void AddOrUpdate(TEntity entity);
     }
 }

@@ -17,5 +17,10 @@ namespace Cotillo_ShoppingCart_Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Gender { get; set; }
+        public int CustomerId { get; set; }
+        /// <summary>
+        /// Comma separated version
+        /// </summary>
+        public string Roles { get; set; }
     }
 }

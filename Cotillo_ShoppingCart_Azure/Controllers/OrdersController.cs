@@ -18,14 +18,35 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
     /// 
     /// </summary>
     [RoutePrefix("api/v1/orders")]
+    [Authorize]
     public class OrdersController : ApiController
     {
         readonly IOrderService _orderService;
         readonly IProductService _productService;
-        public OrdersController(IOrderService orderService, IProductService productService)
+        readonly IMessageService _messageService;
+        readonly IUserService _userService;
+        readonly ICustomerService _customerService;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="orderService"></param>
+        /// <param name="productService"></param>
+        /// <param name="messageService"></param>
+        /// <param name="userService"></param>
+        /// <param name="customerService"></param>
+        public OrdersController(
+            IOrderService orderService, 
+            IProductService productService,
+            IMessageService messageService,
+            IUserService userService,
+            ICustomerService customerService)
         {
             _orderService = orderService;
             _productService = productService;
+            _messageService = messageService;
+            _userService = userService;
+            _customerService = customerService;
         }
         /// <summary>
         /// 
@@ -37,11 +58,20 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         {
             try
             {
-                OrderEntity order = new OrderEntity();
+                OrderEntity order = new OrderEntity()
+                {
+                    Active = true,
+                    CreatedOn = DateTime.Now,
+                    CreditCardNo = checkoutModel.PaymentInfoModel.CreditCardNo,
+                    CustomerId = customerId,
+                    LastUpdated = DateTime.Now,
+                    TotalIncTax = checkoutModel.TotalIncTax 
+                };
                 order.OrderItems = new List<OrderItemEntity>();
                 OrderItemEntity orderItem = null;
                 ProductEntity product = null;
                 PaymentInfo payment = null;
+
                 foreach (var item in checkoutModel.ProductIds)
                 {
                     product = await _productService.GetByIdAsync(item);
@@ -66,7 +96,21 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
                     CreditCardNo = checkoutModel.PaymentInfoModel.CreditCardNo,
                     CVV2 = checkoutModel.PaymentInfoModel.CVV2
                 };
+
                 await _orderService.CheckoutAsync(order, payment);
+
+                var user = await _userService.GetByCustomerIdAsync(customerId);
+
+                //Let's queue the email
+                _messageService.QueueEmail(new Cotillo_ShoppingCart_Services.Domain.Model.Message.EmailEntity()
+                {
+                    Subject = "Your new order!",
+                    Body = "This email confirms your payment has been successfully processed.",
+                    From = "no-reply@mystore.com",
+                    To = user.UserName,
+                    CC = new List<string>() { "jorge.cotillo@gmail.com" }
+                });
+
                 return Ok();
             }
             catch (Exception)

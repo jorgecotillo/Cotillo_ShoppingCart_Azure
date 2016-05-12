@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cotillo_ShoppingCart_Models
+namespace Cotillo_ShoppingCart_Services.Domain.DTO
 {
-    public class ShoppingCartModel
+    public class ShoppingCartDTO
     {
-        public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public double PriceIncTax { get; set; }
-        public int Quantity { get; set; }
+        public int ProductId { get; set; }
         public int ShoppingCartId { get; set; }
+        public int Quantity { get; set; }
+        public double PriceIncTax { get; set; }
     }
 }

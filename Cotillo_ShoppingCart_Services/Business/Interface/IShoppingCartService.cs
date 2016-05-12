@@ -1,4 +1,5 @@
-﻿using Cotillo_ShoppingCart_Services.Domain.Model.Order;
+﻿using Cotillo_ShoppingCart_Services.Domain.DTO;
+using Cotillo_ShoppingCart_Services.Domain.Model.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace Cotillo_ShoppingCart_Services.Business.Interface
     {
         void DeleteAllItems(List<ShoppingCartItemEntity> shoppingCartItems);
         Task DeleteAllItemsAsync(List<ShoppingCartItemEntity> shoppingCartItems);
+        Task DeleteAllByCustomerIdAsync(int customerId);
+        Task DeleteByIdAsync(int shoppingCartId);
+        Task<IList<ShoppingCartDTO>> GetAllByCustomerIdAsync(int customerId);
     }
 }

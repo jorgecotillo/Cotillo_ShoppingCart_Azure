@@ -29,7 +29,8 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
                                          select new CategorySummaryDTO()
                                          {
                                              CategoryName = cat.Name,
-                                             ProductCount = cat.Products.Count
+                                             ProductCount = cat.Products.Count,
+                                             Location = cat.Location
                                          }).ToListAsync();
             }
             catch (Exception)

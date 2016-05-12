@@ -3,7 +3,7 @@ namespace Cotillo_ShoppingCart_Services.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class TableUpdate_050516 : DbMigration
+    public partial class Initial_Load_05_12_2016 : DbMigration
     {
         public override void Up()
         {
@@ -59,6 +59,7 @@ namespace Cotillo_ShoppingCart_Services.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Location = c.String(nullable: false, maxLength: 155),
                         Name = c.String(nullable: false, maxLength: 255),
                         Active = c.Boolean(nullable: false),
                         CreatedOn = c.DateTime(nullable: false),
@@ -76,6 +77,10 @@ namespace Cotillo_ShoppingCart_Services.Migrations
                         Barcode = c.String(nullable: false, maxLength: 20),
                         ExpiresOn = c.DateTime(nullable: false),
                         CategoryId = c.Int(nullable: false),
+                        PriceIncTax = c.Double(nullable: false),
+                        PriceExcTax = c.Double(),
+                        Description = c.String(nullable: false, maxLength: 255),
+                        Location = c.String(nullable: false, maxLength: 155),
                         Active = c.Boolean(nullable: false),
                         CreatedOn = c.DateTime(nullable: false),
                         LastUpdated = c.DateTime(nullable: false),
@@ -85,17 +90,40 @@ namespace Cotillo_ShoppingCart_Services.Migrations
                 .Index(t => t.CategoryId);
             
             CreateTable(
-                "dbo.Users",
+                "dbo.OrderItem",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        UserName = c.String(nullable: false, maxLength: 255),
-                        Password = c.String(),
+                        ProductId = c.Int(nullable: false),
+                        OrderId = c.Int(nullable: false),
+                        PriceIncTax = c.Double(nullable: false),
+                        PriceExcTax = c.Double(),
                         Active = c.Boolean(nullable: false),
                         CreatedOn = c.DateTime(nullable: false),
                         LastUpdated = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Orders", t => t.OrderId)
+                .ForeignKey("dbo.Products", t => t.ProductId)
+                .Index(t => t.ProductId)
+                .Index(t => t.OrderId);
+            
+            CreateTable(
+                "dbo.Orders",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        CustomerId = c.Int(nullable: false),
+                        TotalIncTax = c.Double(nullable: false),
+                        TotalExcTax = c.Double(),
+                        CreditCardNo = c.String(),
+                        Active = c.Boolean(nullable: false),
+                        CreatedOn = c.DateTime(nullable: false),
+                        LastUpdated = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Customers", t => t.CustomerId)
+                .Index(t => t.CustomerId);
             
             CreateTable(
                 "dbo.Customers",
@@ -115,24 +143,103 @@ namespace Cotillo_ShoppingCart_Services.Migrations
                 .Index(t => t.BillingAddressId)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.ShoppingCartItems",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ProductId = c.Int(nullable: false),
+                        CustomerId = c.Int(nullable: false),
+                        PriceIncTax = c.Double(nullable: false),
+                        PriceExcTax = c.Double(),
+                        Active = c.Boolean(nullable: false),
+                        CreatedOn = c.DateTime(nullable: false),
+                        LastUpdated = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Customers", t => t.CustomerId)
+                .ForeignKey("dbo.Products", t => t.ProductId)
+                .Index(t => t.ProductId)
+                .Index(t => t.CustomerId);
+            
+            CreateTable(
+                "dbo.Users",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        DisplayName = c.String(nullable: false, maxLength: 255),
+                        ExternalAccount = c.String(maxLength: 255),
+                        Password = c.String(),
+                        UserName = c.String(nullable: false, maxLength: 150),
+                        Active = c.Boolean(nullable: false),
+                        CreatedOn = c.DateTime(nullable: false),
+                        LastUpdated = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Roles",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(maxLength: 100),
+                        Key = c.String(nullable: false, maxLength: 50),
+                        Active = c.Boolean(nullable: false),
+                        CreatedOn = c.DateTime(nullable: false),
+                        LastUpdated = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.UserRoles",
+                c => new
+                    {
+                        UserId = c.Int(nullable: false),
+                        RoleId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.OrderItem", "ProductId", "dbo.Products");
+            DropForeignKey("dbo.OrderItem", "OrderId", "dbo.Orders");
+            DropForeignKey("dbo.Orders", "CustomerId", "dbo.Customers");
             DropForeignKey("dbo.Customers", "UserId", "dbo.Users");
+            DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
+            DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
+            DropForeignKey("dbo.ShoppingCartItems", "ProductId", "dbo.Products");
+            DropForeignKey("dbo.ShoppingCartItems", "CustomerId", "dbo.Customers");
             DropForeignKey("dbo.Customers", "BillingAddressId", "dbo.Addresses");
             DropForeignKey("dbo.Products", "CategoryId", "dbo.Catogories");
             DropForeignKey("dbo.Addresses", "StateProvinceId", "dbo.States");
             DropForeignKey("dbo.Addresses", "CountryId", "dbo.Countries");
             DropForeignKey("dbo.States", "CountryId", "dbo.Countries");
+            DropIndex("dbo.UserRoles", new[] { "RoleId" });
+            DropIndex("dbo.UserRoles", new[] { "UserId" });
+            DropIndex("dbo.ShoppingCartItems", new[] { "CustomerId" });
+            DropIndex("dbo.ShoppingCartItems", new[] { "ProductId" });
             DropIndex("dbo.Customers", new[] { "UserId" });
             DropIndex("dbo.Customers", new[] { "BillingAddressId" });
+            DropIndex("dbo.Orders", new[] { "CustomerId" });
+            DropIndex("dbo.OrderItem", new[] { "OrderId" });
+            DropIndex("dbo.OrderItem", new[] { "ProductId" });
             DropIndex("dbo.Products", new[] { "CategoryId" });
             DropIndex("dbo.States", new[] { "CountryId" });
             DropIndex("dbo.Addresses", new[] { "StateProvinceId" });
             DropIndex("dbo.Addresses", new[] { "CountryId" });
-            DropTable("dbo.Customers");
+            DropTable("dbo.UserRoles");
+            DropTable("dbo.Roles");
             DropTable("dbo.Users");
+            DropTable("dbo.ShoppingCartItems");
+            DropTable("dbo.Customers");
+            DropTable("dbo.Orders");
+            DropTable("dbo.OrderItem");
             DropTable("dbo.Products");
             DropTable("dbo.Catogories");
             DropTable("dbo.States");

@@ -10,5 +10,6 @@ namespace Cotillo_ShoppingCart_Services.Domain.DTO
     {
         public string CategoryName { get; set; }
         public int ProductCount { get; set; }
+        public string Location { get; set; }
     }
 }

@@ -36,6 +36,15 @@ namespace Cotillo_ShoppingCart_Services.Domain.Mappings
 
             this.Property(i => i.LastUpdated)
                     .IsRequired();
+
+            this.HasMany(i => i.Roles)
+                .WithMany(u => u.Users)
+                .Map(i =>
+                {
+                    i.MapLeftKey("UserId");
+                    i.MapRightKey("RoleId");
+                    i.ToTable("UserRoles");
+                });
         }
     }
 }

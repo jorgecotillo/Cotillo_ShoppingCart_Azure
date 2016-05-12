@@ -7,13 +7,13 @@ namespace Cotillo_ShoppingCart_Services.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Additional_Update_05_11_2016 : IMigrationMetadata
+    public sealed partial class Initial_Load_05_12_2016 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Additional_Update_05_11_2016));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial_Load_05_12_2016));
         
         string IMigrationMetadata.Id
         {
-            get { return "201605111554423_Additional_Update_05_11_2016"; }
+            get { return "201605121800107_Initial_Load_05_12_2016"; }
         }
         
         string IMigrationMetadata.Source

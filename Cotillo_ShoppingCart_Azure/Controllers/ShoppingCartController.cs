@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
+using Cotillo_ShoppingCart_Azure.Models;
 
 namespace Cotillo_ShoppingCart_Azure.Controllers
 {
@@ -17,17 +18,23 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
     /// 
     /// </summary>
     [RoutePrefix("api/v1/shopping-cart")]
+    [Authorize]
     public class ShoppingCartController : ApiController
     {
         readonly IShoppingCartService _shoppingCartService;
         readonly IProductService _productService;
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shoppingCartService"></param>
+        /// <param name="productService"></param>
         public ShoppingCartController(IShoppingCartService shoppingCartService, IProductService productService)
         {
             _shoppingCartService = shoppingCartService;
             _productService = productService;
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -36,39 +43,7 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("customer/{customerId}")]
-        public async Task<IHttpActionResult> AddShoppingCartItem(string customerId, [FromBody] ShoppingCartModel model)
-        {
-            try
-            {
-                ProductEntity product = null;
-                ShoppingCartItemEntity shoppingCartItem = null;
-                product = await _productService.GetByIdAsync(model.ProductId);
-                shoppingCartItem = new ShoppingCartItemEntity()
-                {
-                    Active = true,
-                    CreatedOn = DateTime.Now,
-                    CustomerId = int.Parse(customerId),
-                    LastUpdated = DateTime.Now,
-                    ProductId = model.ProductId,
-                    PriceIncTax = product.PriceIncTax
-                };
-                await _shoppingCartService.SaveAsync(shoppingCartItem, autoCommit: true);
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return new InternalServerErrorResult(Request);
-            }
-            
-        }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task<IHttpActionResult> Post(string customerId, [FromBody] List<ShoppingCartModel> model)
+        public async Task<IHttpActionResult> AddAllShoppingCartItems(string customerId, [FromBody] List<ShoppingCartModel> model)
         {
             try
             {
@@ -96,27 +71,68 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
             }
             catch(Exception ex)
             {
-                return new InternalServerErrorResult(Request);
+                return InternalServerError(ex);
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shoppingCartId"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("{shoppingCartId}")]
+        public async Task<IHttpActionResult> RemoveFromCart(int shoppingCartId)
+        {
+            try
+            {
+                await _shoppingCartService.DeleteByIdAsync(shoppingCartId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="customerId"></param>
         /// <returns></returns>
-        [HttpPost]
-        public async Task<IHttpActionResult> RemoveFromCart()
+        [HttpDelete]
+        [Route("customer/{customerId}")]
+        public async Task<IHttpActionResult> RemoveAllByCustomer(int customerId)
         {
-            return Ok();
+            try
+            {
+                await _shoppingCartService.DeleteAllByCustomerIdAsync(customerId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="customerId"></param>
         /// <returns></returns>
-        public async Task<IHttpActionResult> ListCart()
+        [HttpGet]
+        [Route("customer/{customerId}")]
+        public async Task<IHttpActionResult> ListCart(int customerId)
         {
-            return Ok();
+            try
+            {
+                var shoppingCartItems = await _shoppingCartService.GetAllByCustomerIdAsync(customerId);
+                return Ok(shoppingCartItems.ToShoppingCartListModel());
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }

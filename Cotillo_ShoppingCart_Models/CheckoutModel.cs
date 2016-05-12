@@ -8,6 +8,7 @@ namespace Cotillo_ShoppingCart_Models
 {
     public class CheckoutModel
     {
+        public double TotalIncTax { get; set; }
         public IList<int> ProductIds { get; set; }
         public PaymentInfoModel PaymentInfoModel { get; set; }
     }

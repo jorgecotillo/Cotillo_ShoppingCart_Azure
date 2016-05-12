@@ -15,6 +15,7 @@ using System.Web.Http;
 using Cotillo_ShoppingCart_Azure.Models;
 using Cotillo_ShoppingCart_Services.Domain.Model.Customer;
 using Cotillo_ShoppingCart_Services.Domain.Model.Addresses;
+using Microsoft.AspNet.Identity;
 
 namespace Cotillo_ShoppingCart_Azure.Controllers
 {
@@ -27,11 +28,25 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         readonly IUserService _userService;
         readonly IMessageService _messageService;
         readonly ICustomerService _customerService;
-        public AccountController(IUserService userService, IMessageService messageService, ICustomerService customerService)
+        readonly IRoleService _roleService;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userService"></param>
+        /// <param name="messageService"></param>
+        /// <param name="customerService"></param>
+        /// <param name="roleService"></param>
+        public AccountController(
+            IUserService userService, 
+            IMessageService messageService, 
+            ICustomerService customerService,
+            IRoleService roleService)
         {
             _userService = userService;
             _messageService = messageService;
             _customerService = customerService;
+            _roleService = roleService;
         }
         /// <summary>
         /// 
@@ -43,10 +58,18 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         {
             try
             {
+                //Getting User role
+                var roles = _roleService.GetAll();
+
+                //Even though is getting the item from the cache and is not setting its value into DB Context
+                //it is not creating a duplicate item, nice!
+                var userRole = roles.Where(i => i.Key.ToLower() == "user").FirstOrDefault();
+
                 //Hard coding State and Country for now, it should come from the customer registration
                 var customer = new CustomerEntity()
                 {
                     Active = true,
+                    Email = model.Username,
                     BillingAddress = new AddressEntity()
                     {
                         Active = true,
@@ -68,7 +91,8 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
                         Password = "",
                         DisplayName = model.Name,
                         UserName = model.Username,
-                        ExternalAccount = model.ExternalAccount
+                        ExternalAccount = model.ExternalAccount,
+                        Roles = new List<RoleEntity>() { userRole }
                     }
                 };
 
@@ -107,9 +131,22 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IHttpActionResult> Login()
+        public async Task<IHttpActionResult> Login([FromBody] LoginModel model)
         {
-            return Ok();
+            try
+            {
+                PasswordHasher hasher = new PasswordHasher();
+                var user = await _userService.GetByUsernameAsync(model.UserName);
+
+                if (hasher.VerifyHashedPassword(user.Password, model.Password) == PasswordVerificationResult.Success)
+                    return Ok(user.ToUserInfoModel());
+                else
+                    return BadRequest();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         [Route("external-user/{userId}")]

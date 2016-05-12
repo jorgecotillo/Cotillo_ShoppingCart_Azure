@@ -177,6 +177,7 @@
     <Compile Include="Business\Implementation\OrderService.cs" />
     <Compile Include="Business\Implementation\PaypalPaymentService.cs" />
     <Compile Include="Business\Implementation\ProductService.cs" />
+    <Compile Include="Business\Implementation\RoleService.cs" />
     <Compile Include="Business\Implementation\SendGridEmailProvider.cs" />
     <Compile Include="Business\Implementation\ShoppingCartService.cs" />
     <Compile Include="Business\Implementation\UserService.cs" />
@@ -190,18 +191,22 @@
     <Compile Include="Business\Interface\IPaymentService.cs" />
     <Compile Include="Business\Interface\IProductService.cs" />
     <Compile Include="Business\Interface\IQueueMessageService.cs" />
+    <Compile Include="Business\Interface\IRoleService.cs" />
     <Compile Include="Business\Interface\IShoppingCartService.cs" />
     <Compile Include="Business\Interface\IUserService.cs" />
     <Compile Include="Caching\Extension\CacheExtension.cs" />
     <Compile Include="Caching\Implementation\RedisCacheManager.cs" />
     <Compile Include="Caching\Interface\ICacheManager.cs" />
     <Compile Include="Domain\DTO\CategorySummaryDTO.cs" />
+    <Compile Include="Domain\DTO\ShoppingCartDTO.cs" />
+    <Compile Include="Domain\DTO\UserDTO.cs" />
     <Compile Include="Domain\Mappings\AddressMapping.cs" />
     <Compile Include="Domain\Mappings\CategoryMapping.cs" />
     <Compile Include="Domain\Mappings\CountryMapping.cs" />
     <Compile Include="Domain\Mappings\OrderItemMapping.cs" />
     <Compile Include="Domain\Mappings\OrderMapping.cs" />
     <Compile Include="Domain\Mappings\ProductMapping.cs" />
+    <Compile Include="Domain\Mappings\RoleMapping.cs" />
     <Compile Include="Domain\Mappings\ShoppingCartItemMapping.cs" />
     <Compile Include="Domain\Mappings\StateProvinceMapping.cs" />
     <Compile Include="Domain\Mappings\UserMapping.cs" />
@@ -219,6 +224,7 @@
     <Compile Include="Domain\Model\Product\CategoryEntity.cs" />
     <Compile Include="Domain\Model\Product\ProductEntity.cs" />
     <Compile Include="Domain\Model\State\StateProvinceEntity.cs" />
+    <Compile Include="Domain\Model\User\RoleEntity.cs" />
     <Compile Include="Domain\Model\User\UserEntity.cs" />
     <Compile Include="Integration\Implementation\EF\EFContext.cs" />
     <Compile Include="Integration\Implementation\EF\EFRepository.cs" />
@@ -228,27 +234,18 @@
     <Compile Include="IoCContainer\IoCServiceManager.cs" />
     <Compile Include="IoCContainer\IoCServiceRegistration.cs" />
     <Compile Include="IoCContainer\IoCServiceContainer.cs" />
-    <Compile Include="Migrations\201605051848420_TableUpdate_050516.cs" />
-    <Compile Include="Migrations\201605051848420_TableUpdate_050516.Designer.cs">
-      <DependentUpon>201605051848420_TableUpdate_050516.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605100353594_Additional_Table_Update_05_09_2016.cs" />
-    <Compile Include="Migrations\201605100353594_Additional_Table_Update_05_09_2016.Designer.cs">
-      <DependentUpon>201605100353594_Additional_Table_Update_05_09_2016.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605102105127_Additional_Update_05_10_16.cs" />
-    <Compile Include="Migrations\201605102105127_Additional_Update_05_10_16.Designer.cs">
-      <DependentUpon>201605102105127_Additional_Update_05_10_16.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605111554423_Additional_Update_05_11_2016.cs" />
-    <Compile Include="Migrations\201605111554423_Additional_Update_05_11_2016.Designer.cs">
-      <DependentUpon>201605111554423_Additional_Update_05_11_2016.cs</DependentUpon>
+    <Compile Include="Migrations\201605121800107_Initial_Load_05_12_2016.cs" />
+    <Compile Include="Migrations\201605121800107_Initial_Load_05_12_2016.Designer.cs">
+      <DependentUpon>201605121800107_Initial_Load_05_12_2016.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\MobileServiceInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -256,17 +253,8 @@
     <Folder Include="Domain\Model\Store\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605051848420_TableUpdate_050516.resx">
-      <DependentUpon>201605051848420_TableUpdate_050516.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605100353594_Additional_Table_Update_05_09_2016.resx">
-      <DependentUpon>201605100353594_Additional_Table_Update_05_09_2016.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605102105127_Additional_Update_05_10_16.resx">
-      <DependentUpon>201605102105127_Additional_Update_05_10_16.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605111554423_Additional_Update_05_11_2016.resx">
-      <DependentUpon>201605111554423_Additional_Update_05_11_2016.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605121800107_Initial_Load_05_12_2016.resx">
+      <DependentUpon>201605121800107_Initial_Load_05_12_2016.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

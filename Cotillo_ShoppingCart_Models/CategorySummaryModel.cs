@@ -9,6 +9,7 @@ namespace Cotillo_ShoppingCart_Models
     public class CategorySummaryModel
     {
         public string CategoryName { get; set; }
+        public string Location { get; set; }
         public int ProductCount { get; set; }
     }
 }
