@@ -13,6 +13,9 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cotillo_ShoppingCart_Azure.Models;
+using Cotillo_ShoppingCart_Services.Domain.Model.Customer;
+using Cotillo_ShoppingCart_Services.Domain.Model.Addresses;
+
 namespace Cotillo_ShoppingCart_Azure.Controllers
 {
     /// <summary>
@@ -23,10 +26,12 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
     {
         readonly IUserService _userService;
         readonly IMessageService _messageService;
-        public AccountController(IUserService userService, IMessageService messageService)
+        readonly ICustomerService _customerService;
+        public AccountController(IUserService userService, IMessageService messageService, ICustomerService customerService)
         {
             _userService = userService;
             _messageService = messageService;
+            _customerService = customerService;
         }
         /// <summary>
         /// 
@@ -38,8 +43,24 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
         {
             try
             {
-                await
-                    _userService.SaveAsync(new UserEntity()
+                //Hard coding State and Country for now, it should come from the customer registration
+                var customer = new CustomerEntity()
+                {
+                    Active = true,
+                    BillingAddress = new AddressEntity()
+                    {
+                        Active = true,
+                        Address1 = "70 Blanchard Rd",
+                        Address2 = "Suite 500",
+                        AddressType = 1,
+                        CountryId = 1,
+                        CreatedOn = DateTime.Now,
+                        LastUpdated = DateTime.Now,
+                        StateProvinceId = 1
+                    },
+                    CreatedOn = DateTime.Now,
+                    LastUpdated = DateTime.Now,
+                    User = new UserEntity()
                     {
                         Active = true,
                         CreatedOn = DateTime.Now,
@@ -48,7 +69,11 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
                         DisplayName = model.Name,
                         UserName = model.Username,
                         ExternalAccount = model.ExternalAccount
-                    }, autoCommit: true);
+                    }
+                };
+
+                await
+                    _customerService.SaveAsync(customer, autoCommit: true);
 
                 //Let's queue the email
                 _messageService.QueueEmail(new Cotillo_ShoppingCart_Services.Domain.Model.Message.EmailEntity()
@@ -59,7 +84,7 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
                     To = model.Username,
                     CC = new List<string>() { "jorge.cotillo@gmail.com" }
                 });
-                return Ok();
+                return Ok(new CustomerModel { CustomerId = customer.Id });
             }
             catch(Exception ex)
             {

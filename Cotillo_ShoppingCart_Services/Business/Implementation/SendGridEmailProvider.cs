@@ -42,6 +42,15 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
                 };
                 myMessage.AddTo(recipients);
 
+                if (emailEntity.CC != null && emailEntity.CC.Count > 0)
+                {
+                    foreach (var item in emailEntity.CC)
+                    {
+                        if (!string.IsNullOrWhiteSpace(item))
+                            myMessage.AddCc(new MailAddress(item));
+                    }
+                }
+
                 myMessage.Subject = emailEntity.Subject;
 
                 //Add the HTML and Text bodies

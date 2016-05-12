@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="CategorySummaryModel.cs" />
     <Compile Include="CheckoutModel.cs" />
+    <Compile Include="CustomerModel.cs" />
     <Compile Include="ExtendedUserInfoModel.cs" />
     <Compile Include="GenericApiResult.cs" />
     <Compile Include="ProductModel.cs" />

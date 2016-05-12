@@ -1,4 +1,6 @@
-﻿using Cotillo_ShoppingCart_Services.Domain.Model.Product;
+﻿using Cotillo_ShoppingCart_Services.Domain.Model.Country;
+using Cotillo_ShoppingCart_Services.Domain.Model.Product;
+using Cotillo_ShoppingCart_Services.Domain.Model.State;
 using Cotillo_ShoppingCart_Services.Integration.Implementation.EF;
 using Cotillo_ShoppingCart_Services.Integration.Interfaces.EF;
 using System;
@@ -48,11 +50,13 @@ namespace Cotillo_ShoppingCart_Services.Migrations
                     {
                         Active = true,
                         CreatedOn = DateTime.Now,
-                        FileName = "APictureFile1.jpg",
+                        FileName = "horizon_dha.png",
                         LastUpdated = DateTime.Now,
-                        Name = "Hoop Milk",
+                        Name = "Horizon Milk",
                         Barcode = "9780553061727",
-                        Description = "2% Fat Milk that contains DHA, perfect for your kids!",
+                        PriceIncTax = 2.90,
+                        PriceExcTax = 2.79,
+                        Description = "Organic Milk that contains DHA, perfect for your kids!",
                         Location = "Aisle 2, next to Frozen Yogurt section",
                         ExpiresOn = DateTime.Now.AddDays(15)
                     },
@@ -60,11 +64,13 @@ namespace Cotillo_ShoppingCart_Services.Migrations
                     {
                         Active = true,
                         CreatedOn = DateTime.Now,
-                        FileName = "APictureFile1.jpg",
+                        FileName = "silk.png",
                         LastUpdated = DateTime.Now,
-                        Name = "ABC Milk",
-                        Barcode = "381370035268",
-                        Description = "Regular Milk, great with your breakfast everyday because is a good source of Vitamin D",
+                        Name = "Silk Milk",
+                        Barcode = "720473600209",
+                        PriceIncTax = 2.99,
+                        PriceExcTax = 2.70,
+                        Description = "Soy Milk, great with your breakfast everyday, good source of Vitamin D",
                         Location = "Aisle 2, next to Frozen Yogurt section",
                         ExpiresOn = DateTime.Now.AddDays(15)
                     }
@@ -72,6 +78,27 @@ namespace Cotillo_ShoppingCart_Services.Migrations
             };
 
             categoryRepository.AddOrUpdate(categoryFilter, categoryEntity);
+
+            IRepository<StateProvinceEntity> stateRepository = new EFRepository<StateProvinceEntity>(context);
+            //Set the value to compare with
+            Expression<Func<StateProvinceEntity, object>> stateFilter = i => i.Name;
+
+            StateProvinceEntity state = new StateProvinceEntity()
+            {
+                    Active = true,
+                    CreatedOn = DateTime.Now,
+                    LastUpdated = DateTime.Now,
+                    Name = "MA",
+                    Country = new CountryEntity()
+                    {
+                        Active = true,
+                        CreatedOn = DateTime.Now,
+                        LastUpdated = DateTime.Now,
+                        Name = "USA"
+                    }
+            };
+            stateRepository.AddOrUpdate(stateFilter, state);
+
         }
     }
 }

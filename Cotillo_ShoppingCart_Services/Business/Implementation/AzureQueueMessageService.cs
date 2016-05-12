@@ -20,7 +20,7 @@ namespace Cotillo_ShoppingCart_Services.Business.Implementation
             {
                 // Retrieve storage account from connection string.
                 CloudStorageAccount storageAccount = CloudStorageAccount
-                    .Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
+                    .Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
 
                 // Create the queue client.
                 CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();

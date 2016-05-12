@@ -27,12 +27,16 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
             _shoppingCartService = shoppingCartService;
             _productService = productService;
         }
+
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="customerId"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<IHttpActionResult> Post(int customerId, [FromBody] ShoppingCartModel model)
+        [HttpPost]
+        [Route("customer/{customerId}")]
+        public async Task<IHttpActionResult> AddShoppingCartItem(string customerId, [FromBody] ShoppingCartModel model)
         {
             try
             {
@@ -43,7 +47,7 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
                 {
                     Active = true,
                     CreatedOn = DateTime.Now,
-                    CustomerId = customerId,
+                    CustomerId = int.Parse(customerId),
                     LastUpdated = DateTime.Now,
                     ProductId = model.ProductId,
                     PriceIncTax = product.PriceIncTax
@@ -57,13 +61,14 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
             }
             
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="customerId"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<IHttpActionResult> Post(int customerId, [FromBody] List<ShoppingCartModel> model)
+        public async Task<IHttpActionResult> Post(string customerId, [FromBody] List<ShoppingCartModel> model)
         {
             try
             {
@@ -76,7 +81,7 @@ namespace Cotillo_ShoppingCart_Azure.Controllers
                     {
                         Active = true,
                         CreatedOn = DateTime.Now,
-                        CustomerId = customerId,
+                        CustomerId = int.Parse(customerId),
                         LastUpdated = DateTime.Now,
                         ProductId = item.ProductId,
                         PriceIncTax = product.PriceIncTax
